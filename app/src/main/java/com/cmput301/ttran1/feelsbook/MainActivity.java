@@ -1,5 +1,6 @@
 package com.cmput301.ttran1.feelsbook;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.os.RecoverySystem;
 import android.support.design.widget.FloatingActionButton;
@@ -11,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements AddEmotionDialogFragment.AddEmotionDialogListener {
 
     private EmotionsHistory emotionsHistory;
 
@@ -79,5 +82,22 @@ public class MainActivity extends AppCompatActivity {
         this.emotionsHistory.addEmotion(new Love());
         this.emotionsHistory.addEmotion(new Joy());
         this.emotionsHistory.addEmotion(new Surprise());
+    }
+
+    private void addEmotion(Emotion emotion) {
+        this.emotionsHistory.addEmotion(emotion);
+    }
+
+    // Used by the AddEmotionDialogFragment
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Toast toast = Toast.makeText(this, "Positive Click", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        Toast toast = Toast.makeText(this, "Negative Click", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

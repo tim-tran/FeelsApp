@@ -3,6 +3,7 @@ package com.cmput301.ttran1.feelsbook;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,24 @@ public class AddEmotionDialogFragment extends DialogFragment {
 
     View view;
     Spinner emotionSelect;
+
+    public interface AddEmotionDialogListener {
+        public void onDialogPositiveClick(DialogFragment dialog);
+        public void onDialogNegativeClick(DialogFragment dialog);
+    }
+
+    AddEmotionDialogListener dialogListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            dialogListener = (AddEmotionDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement Notice Dialog Listener");
+        }
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -36,14 +55,12 @@ public class AddEmotionDialogFragment extends DialogFragment {
         builder.setView(this.view)
                 .setPositiveButton(R.string.dialog_add, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast toast = Toast.makeText(getActivity(), "Adding Emotion", Toast.LENGTH_SHORT);
-                        toast.show();
+                        dialogListener.onDialogPositiveClick(AddEmotionDialogFragment.this);
                     }
                 })
                 .setNegativeButton(R.string.dialog_discard, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast toast = Toast.makeText(getActivity(), "Discarding Emotion", Toast.LENGTH_SHORT);
-                        toast.show();
+                        dialogListener.onDialogNegativeClick(AddEmotionDialogFragment.this);
                     }
                 })
                 .setTitle(R.string.dialog_add_emotion_title);
