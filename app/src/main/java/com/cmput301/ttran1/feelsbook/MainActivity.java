@@ -1,19 +1,31 @@
 package com.cmput301.ttran1.feelsbook;
 
 import android.os.Bundle;
+import android.os.RecoverySystem;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    private EmotionsHistory emotionsHistory;
+
+    private RecyclerView recyclerView;
+    private EmotionsHistoryAdapter rvAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        emotionsHistory = new EmotionsHistory();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -25,6 +37,20 @@ public class MainActivity extends AppCompatActivity {
                 addEmotionDialogFragment.show(getFragmentManager(), "addEmotion");
             }
         });
+
+        this.addEmotions();
+
+        for (int i = 0; i < emotionsHistory.getEmotions().size(); i++) {
+            Log.d("debug", emotionsHistory.getEmotions().get(i).getEmotion());
+        }
+
+        recyclerView = (RecyclerView) findViewById(R.id.emotionsHistoryView);
+//        recyclerView.setHasFixedSize(true);     // improves performance
+        rvAdapter = new EmotionsHistoryAdapter(emotionsHistory.getEmotions());
+        recyclerView.setAdapter(rvAdapter);
+        // use a linear layout manager (similar to a ListView)
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        rvAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -47,5 +73,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addEmotions() {
+        this.emotionsHistory.addEmotion(new Love());
+        this.emotionsHistory.addEmotion(new Joy());
+        this.emotionsHistory.addEmotion(new Surprise());
     }
 }

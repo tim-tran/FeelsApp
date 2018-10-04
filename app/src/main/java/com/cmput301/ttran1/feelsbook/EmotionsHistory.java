@@ -7,9 +7,14 @@ public class EmotionsHistory {
     private static ArrayList<Emotion> emotions;
 
     public EmotionsHistory() {
+        emotions = new ArrayList<>();
     }
 
     public ArrayList<Emotion> getEmotions() {
-        return this.emotions;
+        return emotions;
+    }
+
+    public void addEmotion(Emotion emotion) {
+        emotions.add(emotion);
     }
 }
