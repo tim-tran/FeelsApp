@@ -34,8 +34,6 @@ public class AddEmotionDialogFragment extends DialogFragment
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         selectedEmotion = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), "Selected: " + selectedEmotion,
-                Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -74,7 +72,6 @@ public class AddEmotionDialogFragment extends DialogFragment
         builder.setView(this.view)
                 .setPositiveButton(R.string.dialog_add, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialogListener.onDialogPositiveClick(AddEmotionDialogFragment.this);
                         try {
                             EditText commentTextView = view.findViewById(R.id.comment);
                             String comment = commentTextView.getText().toString();
@@ -89,6 +86,7 @@ public class AddEmotionDialogFragment extends DialogFragment
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        dialogListener.onDialogPositiveClick(AddEmotionDialogFragment.this);
                     }
                 })
                 .setNegativeButton(R.string.dialog_discard, new DialogInterface.OnClickListener() {

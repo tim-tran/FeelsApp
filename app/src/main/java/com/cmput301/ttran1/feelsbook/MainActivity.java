@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
@@ -20,6 +21,13 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private EmotionsHistoryAdapter rvAdapter;
 
+    private TextView loveCountTextView;
+    private TextView joyCountTextView;
+    private TextView surpriseCountTextView;
+    private TextView angerCountTextView;
+    private TextView sadnessCountTextView;
+    private TextView fearCountTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +35,13 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        loveCountTextView = (TextView) findViewById(R.id.loveCountText);
+        joyCountTextView = (TextView) findViewById(R.id.joyCountText);
+        surpriseCountTextView = (TextView) findViewById(R.id.surpriseCountText);
+        angerCountTextView = (TextView) findViewById(R.id.angerCountText);
+        sadnessCountTextView = (TextView) findViewById(R.id.sadnessCountText);
+        fearCountTextView = (TextView) findViewById(R.id.fearCountText);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.emotionsHistoryView);
-//        recyclerView.setHasFixedSize(true);     // improves performance
+        recyclerView.setHasFixedSize(true);     // improves performance
         rvAdapter = new EmotionsHistoryAdapter(EmotionsHistory.getEmotions());
         recyclerView.setAdapter(rvAdapter);
         // use a linear layout manager (similar to a ListView)
@@ -74,14 +89,21 @@ public class MainActivity extends AppCompatActivity
     // Used by the AddEmotionDialogFragment
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Toast toast = Toast.makeText(this, "Positive Click", Toast.LENGTH_SHORT);
-        toast.show();
+        updateCountText();
         rvAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
-        Toast toast = Toast.makeText(this, "Negative Click", Toast.LENGTH_SHORT);
-        toast.show();
+    }
+
+    public void updateCountText() {
+        EmotionsHistory.count();
+        loveCountTextView.setText("Love: " + Integer.toString(EmotionsHistory.getLoveCount()));
+        joyCountTextView.setText("Joy: " + Integer.toString(EmotionsHistory.getJoyCount()));
+        surpriseCountTextView.setText("Surprise: " + Integer.toString(EmotionsHistory.getSurpriseCount()));
+        angerCountTextView.setText("Anger: " + Integer.toString(EmotionsHistory.getAngerCount()));
+        sadnessCountTextView.setText("Sadness: " + Integer.toString(EmotionsHistory.getSadnessCount()));
+        fearCountTextView.setText("Fear: " + Integer.toString(EmotionsHistory.getFearCount()));
     }
 }
