@@ -17,8 +17,6 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
         implements AddEmotionDialogFragment.AddEmotionDialogListener {
 
-    private EmotionsHistory emotionsHistory;
-
     private RecyclerView recyclerView;
     private EmotionsHistoryAdapter rvAdapter;
 
@@ -26,8 +24,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        emotionsHistory = new EmotionsHistory();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,19 +37,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        this.addEmotions();
-
-        for (int i = 0; i < emotionsHistory.getEmotions().size(); i++) {
-            Log.d("debug", emotionsHistory.getEmotions().get(i).getEmotion());
+        for (int i = 0; i < EmotionsHistory.getEmotions().size(); i++) {
+            Log.d("debug", EmotionsHistory.getEmotions().get(i).getEmotion());
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.emotionsHistoryView);
 //        recyclerView.setHasFixedSize(true);     // improves performance
-        rvAdapter = new EmotionsHistoryAdapter(emotionsHistory.getEmotions());
+        rvAdapter = new EmotionsHistoryAdapter(EmotionsHistory.getEmotions());
         recyclerView.setAdapter(rvAdapter);
         // use a linear layout manager (similar to a ListView)
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        rvAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -78,22 +71,12 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void addEmotions() {
-        this.emotionsHistory.addEmotion(new Love());
-        this.emotionsHistory.addEmotion(new Joy());
-        this.emotionsHistory.addEmotion(new Surprise());
-    }
-
-    private void addEmotion(Emotion emotion) {
-        this.emotionsHistory.addEmotion(emotion);
-    }
-
     // Used by the AddEmotionDialogFragment
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         Toast toast = Toast.makeText(this, "Positive Click", Toast.LENGTH_SHORT);
         toast.show();
-
+        rvAdapter.notifyDataSetChanged();
     }
 
     @Override

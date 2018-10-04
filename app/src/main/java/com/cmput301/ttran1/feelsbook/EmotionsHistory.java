@@ -4,17 +4,19 @@ import java.util.ArrayList;
 
 public class EmotionsHistory {
 
-    private static ArrayList<Emotion> emotions;
+    private static ArrayList<Emotion> emotions = new ArrayList<>();
 
-    public EmotionsHistory() {
-        emotions = new ArrayList<>();
-    }
+    public EmotionsHistory() {}
 
-    public ArrayList<Emotion> getEmotions() {
+    public static ArrayList<Emotion> getEmotions() {
         return emotions;
     }
 
-    public void addEmotion(Emotion emotion) {
+    public static void addEmotion(Emotion emotion) {
         emotions.add(emotion);
+    }
+
+    public static int size() {
+        return emotions.size();
     }
 }

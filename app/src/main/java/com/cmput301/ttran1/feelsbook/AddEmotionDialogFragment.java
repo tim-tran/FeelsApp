@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,9 +17,6 @@ import android.widget.Toast;
 
 public class AddEmotionDialogFragment extends DialogFragment
         implements AdapterView.OnItemSelectedListener {
-
-    private EmotionFactory emotionFactory;
-    private EmotionsHistory emotionsHistory;
 
     private View view;
     private Spinner emotionSelect;
@@ -33,8 +31,9 @@ public class AddEmotionDialogFragment extends DialogFragment
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_SHORT).show();
+        selectedEmotion = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), "Selected: " + selectedEmotion,
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -60,7 +59,7 @@ public class AddEmotionDialogFragment extends DialogFragment
         LayoutInflater inflater = getActivity().getLayoutInflater();
         this.view = inflater.inflate(R.layout.dialog_add_emotion, null);
 
-        Spinner emotionSelect = (Spinner) this.view.findViewById(R.id.emotionSelect);
+        emotionSelect = (Spinner) this.view.findViewById(R.id.emotionSelect);
         // Create an ArrayAdapter using the emotions array and a default spinner layout
         ArrayAdapter<CharSequence> emotionsAdapter = ArrayAdapter.createFromResource(view.getContext(),
                 R.array.emotions_array, android.R.layout.simple_spinner_item);
@@ -74,6 +73,15 @@ public class AddEmotionDialogFragment extends DialogFragment
                 .setPositiveButton(R.string.dialog_add, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialogListener.onDialogPositiveClick(AddEmotionDialogFragment.this);
+                        try {
+                            EmotionsHistory.addEmotion(EmotionFactory.makeEmotion(selectedEmotion));
+                            Log.d("debug", "EMOTIONS SIZE: " + EmotionsHistory.size());
+                            for (int i = 0; i < EmotionsHistory.size(); i++) {
+                                Log.d("debug", EmotionsHistory.getEmotions().get(i).getEmotion());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.dialog_discard, new DialogInterface.OnClickListener() {

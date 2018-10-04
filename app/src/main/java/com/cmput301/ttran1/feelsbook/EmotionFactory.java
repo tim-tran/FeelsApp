@@ -18,14 +18,14 @@ public class EmotionFactory {
         else if (emotion.equalsIgnoreCase("anger")) {
             return new Anger();
         }
-        else if (emotion.equalsIgnoreCase("anger")) {
+        else if (emotion.equalsIgnoreCase("sadness")) {
             return new Sadness();
         }
-        else if (emotion.equalsIgnoreCase("sadness")) {
+        else if (emotion.equalsIgnoreCase("fear")) {
             return new Fear();
         }
         else {
-            throw new NotAnEmotionException("fear");
+            throw new NotAnEmotionException(emotion + "is not a valid emotion.");
         }
     }
 }
