@@ -10,4 +10,10 @@ public class Joy extends Emotion {
     public String getEmotion() {
         return "Joy";
     }
+
+    @Override
+    public String toString() {
+        return "Joy";
+    }
+
 }

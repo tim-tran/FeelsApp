@@ -11,4 +11,10 @@ public class Sadness extends Emotion {
         return "Sadness";
     }
 
+    @Override
+    public String toString() {
+        return "Sadness";
+    }
+
+
 }

@@ -11,4 +11,10 @@ public class Surprise extends Emotion {
         return "Surprise";
     }
 
+    @Override
+    public String toString() {
+        return "Surprise";
+    }
+
+
 }

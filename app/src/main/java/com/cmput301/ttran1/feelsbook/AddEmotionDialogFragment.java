@@ -9,14 +9,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class AddEmotionDialogFragment extends DialogFragment {
+public class AddEmotionDialogFragment extends DialogFragment
+        implements AdapterView.OnItemSelectedListener {
 
-    View view;
-    Spinner emotionSelect;
+    private View view;
+    private Spinner emotionSelect;
+    private String selectedEmotion;
 
     public interface AddEmotionDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);
@@ -24,6 +27,16 @@ public class AddEmotionDialogFragment extends DialogFragment {
     }
 
     AddEmotionDialogListener dialogListener;
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -51,6 +64,8 @@ public class AddEmotionDialogFragment extends DialogFragment {
         // Specify the layout to use when the list of choices appears
         emotionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         emotionSelect.setAdapter(emotionsAdapter);
+
+        emotionSelect.setOnItemSelectedListener(this);
 
         builder.setView(this.view)
                 .setPositiveButton(R.string.dialog_add, new DialogInterface.OnClickListener() {

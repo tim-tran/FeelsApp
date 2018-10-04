@@ -24,4 +24,6 @@ public abstract class Emotion {
     public Date getTimestamp() {
         return this.timestamp;
     }
+
+    public abstract String toString();
 }

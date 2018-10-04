@@ -11,4 +11,8 @@ public class Fear extends Emotion{
         return "Fear";
     }
 
+    @Override
+    public String toString() {
+        return "Fear";
+    }
 }
