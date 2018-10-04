@@ -30,7 +30,6 @@ public class EmotionsHistoryAdapter extends
         }
     }
 
-    // TODO: Edit the type of dataset
     public EmotionsHistoryAdapter(ArrayList<Emotion> data) {
         this.emotions = data;
         Log.d("debug", Integer.toString(emotions.size()));
@@ -44,7 +43,6 @@ public class EmotionsHistoryAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
         View emotionView = inflater.inflate(R.layout.emotion_list_item, parent, false);
 
-
         ViewHolder viewHolder = new ViewHolder(emotionView);
         return viewHolder;
     }
@@ -57,7 +55,7 @@ public class EmotionsHistoryAdapter extends
 
         // - replace the contents of the view with that element
         viewholder.emotionTextView.setText(emotion.getEmotion());
-        viewholder.commentTextView.setText(R.string.dialog_add);
+        viewholder.commentTextView.setText(emotion.getComment());
         viewholder.dateTextView.setText(emotion.getTimestamp().toString());
     }
 

@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddEmotionDialogFragment extends DialogFragment
@@ -74,11 +76,16 @@ public class AddEmotionDialogFragment extends DialogFragment
                     public void onClick(DialogInterface dialog, int id) {
                         dialogListener.onDialogPositiveClick(AddEmotionDialogFragment.this);
                         try {
-                            EmotionsHistory.addEmotion(EmotionFactory.makeEmotion(selectedEmotion));
+                            EditText commentTextView = view.findViewById(R.id.comment);
+                            String comment = commentTextView.getText().toString();
+                            Emotion newEmo = EmotionFactory.makeEmotion(selectedEmotion);
+                            newEmo.setComment(comment);
+                            EmotionsHistory.addEmotion(newEmo);
                             Log.d("debug", "EMOTIONS SIZE: " + EmotionsHistory.size());
                             for (int i = 0; i < EmotionsHistory.size(); i++) {
                                 Log.d("debug", EmotionsHistory.getEmotions().get(i).getEmotion());
                             }
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
