@@ -17,6 +17,9 @@ import android.widget.Toast;
 public class AddEmotionDialogFragment extends DialogFragment
         implements AdapterView.OnItemSelectedListener {
 
+    private EmotionFactory emotionFactory;
+    private EmotionsHistory emotionsHistory;
+
     private View view;
     private Spinner emotionSelect;
     private String selectedEmotion;

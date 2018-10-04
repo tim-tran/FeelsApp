@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity
     public void onDialogPositiveClick(DialogFragment dialog) {
         Toast toast = Toast.makeText(this, "Positive Click", Toast.LENGTH_SHORT);
         toast.show();
+
     }
 
     @Override
