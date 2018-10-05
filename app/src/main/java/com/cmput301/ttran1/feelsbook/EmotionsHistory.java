@@ -40,7 +40,7 @@ public class EmotionsHistory {
         return emotions.size();
     }
 
-    // TODO: improve this so you don't have to count every time you add a new emotion
+    // TODO: improve this so you don't have to call count every time you add a new emotion
     public static void count() {
         loveCount = 0;
         joyCount = 0;
