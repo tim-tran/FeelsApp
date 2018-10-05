@@ -81,17 +81,7 @@ public class AddEmotionDialogFragment extends DialogFragment
         builder.setView(this.view)
                 .setPositiveButton(R.string.dialog_add, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        try {
-                            EditText commentTextView = view.findViewById(R.id.comment);
-                            String comment = commentTextView.getText().toString();
-                            Emotion newEmo = EmotionFactory.makeEmotion(selectedEmotion);
-                            newEmo.setComment(comment);
-                            EmotionsHistory.addEmotion(newEmo);
-                            InternalStorage.writeObject(getActivity(), FILENAME,
-                                    EmotionsHistory.getEmotions());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        saveEmotion();
                         dialogListener.onDialogPositiveClick(AddEmotionDialogFragment.this);
                     }
                 })
@@ -106,6 +96,17 @@ public class AddEmotionDialogFragment extends DialogFragment
         return builder.create();
     }
 
-
-
+    private void saveEmotion() {
+        try {
+            EditText commentTextView = view.findViewById(R.id.comment);
+            String comment = commentTextView.getText().toString();
+            Emotion newEmo = EmotionFactory.makeEmotion(selectedEmotion);
+            newEmo.setComment(comment);
+            EmotionsHistory.addEmotion(newEmo);
+            InternalStorage.writeObject(getActivity(), FILENAME,
+                    EmotionsHistory.getEmotions());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

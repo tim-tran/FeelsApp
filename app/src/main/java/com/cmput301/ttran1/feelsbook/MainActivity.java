@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
     public void onDialogNegativeClick(DialogFragment dialog) {
     }
 
-    public void updateCountText() {
+    private void updateCountText() {
         EmotionsHistory.count();
         loveCountTextView.setText("Love: " + Integer.toString(EmotionsHistory.getLoveCount()));
         joyCountTextView.setText("Joy: " + Integer.toString(EmotionsHistory.getJoyCount()));

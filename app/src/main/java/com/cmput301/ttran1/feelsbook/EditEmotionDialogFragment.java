@@ -72,22 +72,7 @@ public class EditEmotionDialogFragment extends DialogFragment
         builder.setView(this.view)
                 .setPositiveButton(R.string.dialog_add, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        try {
-                            EditText commentTextView = view.findViewById(R.id.comment);
-                            String comment = commentTextView.getText().toString();
-                            Emotion replaceEmo = EmotionFactory.makeEmotion(selectedEmotion);
-                            replaceEmo.setComment(comment);
-                            EmotionsHistory.setEmotionByIndex(emotionIndex, replaceEmo);
-                            InternalStorage.writeObject(getActivity(), FILENAME,
-                                    EmotionsHistory.getEmotions());
-                        } catch (NullPointerException e) {
-                            Log.e("debug", "Nullpointer when rewriting emotion. " +
-                                    "Was the emotion index properly assigned?");
-                            e.printStackTrace();
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        replaceEmotion();
                         dialogListener.onDialogPositiveClick(EditEmotionDialogFragment.this);
                     }
                 })
@@ -106,4 +91,24 @@ public class EditEmotionDialogFragment extends DialogFragment
     public void setEmotionIndex(int ind) {
         this.emotionIndex = ind;
     }
+
+    private void replaceEmotion() {
+        try {
+            EditText commentTextView = view.findViewById(R.id.comment);
+            String comment = commentTextView.getText().toString();
+            Emotion replaceEmo = EmotionFactory.makeEmotion(selectedEmotion);
+            replaceEmo.setComment(comment);
+            EmotionsHistory.setEmotionByIndex(emotionIndex, replaceEmo);
+            InternalStorage.writeObject(getActivity(), FILENAME,
+                    EmotionsHistory.getEmotions());
+        } catch (NullPointerException e) {
+            Log.e("debug", "Nullpointer when rewriting emotion. " +
+                    "Was the emotion index properly assigned?");
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
