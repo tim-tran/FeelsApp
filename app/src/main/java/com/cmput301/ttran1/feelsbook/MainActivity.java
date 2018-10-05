@@ -78,11 +78,9 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public boolean onItemLongClicked(RecyclerView recyclerView, int position,
                                                      View v) {
-                        Toast toast = Toast.makeText(recyclerView.getContext(),
-                                "Hellothere", Toast.LENGTH_SHORT);
-                        toast.show();
                         EditEmotionDialogFragment editEmotionDialogFragment =
                                 new EditEmotionDialogFragment();
+                        editEmotionDialogFragment.setEmotionIndex(position);
                         editEmotionDialogFragment.show(getFragmentManager(), "editEmotion");
                         return false;
                     }

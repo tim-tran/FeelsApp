@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +19,8 @@ public class EditEmotionDialogFragment extends DialogFragment
     private View view;
     private Spinner emotionSelect;
     private String selectedEmotion;
+
+    private int emotionIndex;
 
     private static final String FILENAME = "SavedEmotions.sav";
 
@@ -58,8 +61,8 @@ public class EditEmotionDialogFragment extends DialogFragment
 
         emotionSelect = (Spinner) this.view.findViewById(R.id.emotionSelect);
         // Create an ArrayAdapter using the emotions array and a default spinner layout
-        ArrayAdapter<CharSequence> emotionsAdapter = ArrayAdapter.createFromResource(view.getContext(),
-                R.array.emotions_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> emotionsAdapter = ArrayAdapter.createFromResource(
+                view.getContext(), R.array.emotions_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         emotionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         emotionSelect.setAdapter(emotionsAdapter);
@@ -72,12 +75,17 @@ public class EditEmotionDialogFragment extends DialogFragment
                         try {
                             EditText commentTextView = view.findViewById(R.id.comment);
                             String comment = commentTextView.getText().toString();
-                            Emotion newEmo = EmotionFactory.makeEmotion(selectedEmotion);
-                            newEmo.setComment(comment);
-                            EmotionsHistory.addEmotion(newEmo);
+                            Emotion replaceEmo = EmotionFactory.makeEmotion(selectedEmotion);
+                            replaceEmo.setComment(comment);
+                            EmotionsHistory.setEmotionByIndex(emotionIndex, replaceEmo);
                             InternalStorage.writeObject(getActivity(), FILENAME,
                                     EmotionsHistory.getEmotions());
-                        } catch (Exception e) {
+                        } catch (NullPointerException e) {
+                            Log.e("debug", "Nullpointer when rewriting emotion. " +
+                                    "Was the emotion index properly assigned?");
+                            e.printStackTrace();
+                        }
+                        catch (Exception e) {
                             e.printStackTrace();
                         }
                         dialogListener.onDialogPositiveClick(EditEmotionDialogFragment.this);
@@ -92,5 +100,10 @@ public class EditEmotionDialogFragment extends DialogFragment
 
         // Create the AlertDialog object and return it
         return builder.create();
+    }
+
+    // Sets the index of the emotion to edit.
+    public void setEmotionIndex(int ind) {
+        this.emotionIndex = ind;
     }
 }

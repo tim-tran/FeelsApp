@@ -24,6 +24,14 @@ public class EmotionsHistory {
         return emotions;
     }
 
+    public static Emotion getEmotionByIndex(int ind) {
+        return emotions.get(ind);
+    }
+
+    public static void setEmotionByIndex(int ind, Emotion emotion) {
+        emotions.set(ind, emotion);
+    }
+
     public static void addEmotion(Emotion emotion) {
         emotions.add(emotion);
     }
