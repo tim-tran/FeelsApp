@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity
         // use a linear layout manager (similar to a ListView)
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         rvAdapter.notifyDataSetChanged();
+        updateCountText();
     }
 
     @Override
