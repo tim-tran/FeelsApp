@@ -24,6 +24,8 @@ public class AddEmotionDialogFragment extends DialogFragment
     private Spinner emotionSelect;
     private String selectedEmotion;
 
+    private static final String FILENAME = "SavedEmotions.sav";
+
     public interface AddEmotionDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);
         public void onDialogNegativeClick(DialogFragment dialog);
@@ -78,6 +80,7 @@ public class AddEmotionDialogFragment extends DialogFragment
                             Emotion newEmo = EmotionFactory.makeEmotion(selectedEmotion);
                             newEmo.setComment(comment);
                             EmotionsHistory.addEmotion(newEmo);
+                            InternalStorage.writeObject(getActivity(), FILENAME, EmotionsHistory.getEmotions());
                             Log.d("debug", "EMOTIONS SIZE: " + EmotionsHistory.size());
                             for (int i = 0; i < EmotionsHistory.size(); i++) {
                                 Log.d("debug", EmotionsHistory.getEmotions().get(i).getEmotion());

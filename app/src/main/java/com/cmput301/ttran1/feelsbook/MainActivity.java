@@ -1,6 +1,7 @@
 package com.cmput301.ttran1.feelsbook;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.RecoverySystem;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,20 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.provider.Telephony.Mms.Part.FILENAME;
+
 public class MainActivity extends AppCompatActivity
         implements AddEmotionDialogFragment.AddEmotionDialogListener {
 
@@ -27,6 +42,8 @@ public class MainActivity extends AppCompatActivity
     private TextView angerCountTextView;
     private TextView sadnessCountTextView;
     private TextView fearCountTextView;
+
+    private static final String FILENAME = "SavedEmotions.sav";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +75,35 @@ public class MainActivity extends AppCompatActivity
 
         recyclerView = (RecyclerView) findViewById(R.id.emotionsHistoryView);
         recyclerView.setHasFixedSize(true);     // improves performance
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        /* Try block taken from
+        https://androidresearch.wordpress.com/2013/04/07/
+        aching-objects-in-android-internal-storage/
+         2018-10-04
+         */
+        try {
+            // Retrieve the list from internal storage
+            EmotionsHistory.getSavedEmotions(this);
+            // Display the items from the list retrieved.
+            for (Emotion entry : EmotionsHistory.getEmotions()) {
+                Log.d("debug", "JUST READ FROM FILE");
+                Log.d("debug", entry.getEmotion());
+            }
+        } catch (IOException e) {
+            Log.e("debug", e.getMessage());
+        } catch (ClassNotFoundException e) {
+            Log.e("debug", e.getMessage());
+        }
         rvAdapter = new EmotionsHistoryAdapter(EmotionsHistory.getEmotions());
         recyclerView.setAdapter(rvAdapter);
         // use a linear layout manager (similar to a ListView)
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        rvAdapter.notifyDataSetChanged();
     }
 
     @Override

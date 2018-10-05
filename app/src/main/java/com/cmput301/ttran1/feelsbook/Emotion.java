@@ -1,8 +1,9 @@
 package com.cmput301.ttran1.feelsbook;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Emotion {
+public abstract class Emotion implements Serializable{
 
     protected Date timestamp;
     protected String comment;

@@ -50,10 +50,10 @@ public class EmotionsHistoryAdapter extends
     // Replaces the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewholder, int position) {
-        // - get element from your dataset at this position
+        // get element from your dataset at this position
         Emotion emotion = emotions.get(position);
 
-        // - replace the contents of the view with that element
+        // replace the contents of the view with that element's text
         viewholder.emotionTextView.setText(emotion.getEmotion());
         viewholder.commentTextView.setText(emotion.getComment());
         viewholder.dateTextView.setText(emotion.getTimestamp().toString());

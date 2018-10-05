@@ -1,5 +1,8 @@
 package com.cmput301.ttran1.feelsbook;
 
+import android.content.Context;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class EmotionsHistory {
@@ -10,6 +13,8 @@ public class EmotionsHistory {
     private static int angerCount = 0;
     private static int sadnessCount = 0;
     private static int fearCount = 0;
+
+    private static final String FILENAME = "SavedEmotions.sav";
 
     private static ArrayList<Emotion> emotions = new ArrayList<>();
 
@@ -74,5 +79,9 @@ public class EmotionsHistory {
 
     public static int getFearCount() {
         return fearCount;
+    }
+
+    public static void getSavedEmotions(Context context) throws IOException, ClassNotFoundException {
+        emotions = (ArrayList<Emotion>) InternalStorage.readObject(context, FILENAME);
     }
 }
