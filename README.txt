@@ -13,5 +13,6 @@ Work to be done:
 - Reformat the way dates are displayed so that it is more readable.
 - Allow emotions to be deleted
 
+Video: https://youtu.be/_EmxNY1J9pQ
 
 Feels good man!
