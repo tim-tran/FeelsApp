@@ -76,6 +76,18 @@ public class MainActivity extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.emotionsHistoryView);
         recyclerView.setHasFixedSize(true);     // improves performance
 
+        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(
+                new ItemClickSupport.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClicked(RecyclerView recyclerView, int position,
+                                                     View v) {
+                        Toast toast = Toast.makeText(recyclerView.getContext(),
+                                "Hellothere", Toast.LENGTH_SHORT);
+                        toast.show();
+                        return false;
+                    }
+                }
+        );
     }
 
     @Override
@@ -89,11 +101,6 @@ public class MainActivity extends AppCompatActivity
         try {
             // Retrieve the list from internal storage
             EmotionsHistory.getSavedEmotions(this);
-            // Display the items from the list retrieved.
-            for (Emotion entry : EmotionsHistory.getEmotions()) {
-                Log.d("debug", "JUST READ FROM FILE");
-                Log.d("debug", entry.getEmotion());
-            }
         } catch (IOException e) {
             Log.e("debug", e.getMessage());
         } catch (ClassNotFoundException e) {

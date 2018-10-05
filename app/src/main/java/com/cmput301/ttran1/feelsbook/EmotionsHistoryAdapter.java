@@ -11,6 +11,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/*
+Class referenced from
+https://guides.codepath.com/android/Using-the-RecyclerView
+2018-10-02
+ */
 public class EmotionsHistoryAdapter extends
         RecyclerView.Adapter<EmotionsHistoryAdapter.ViewHolder> {
     private ArrayList<Emotion> emotions;
