@@ -12,6 +12,7 @@
     <string name="dialog_add">Add</string>
     <string name="dialog_discard">Discard</string>
     <string name="dialog_add_emotion_title">Add emotion</string>
+    <string name="dialog_edit_emotion_title">Edit emotion</string>
     <string name="comment">Comment...</string>
     <string name="emotion">Emotion...</string>
 

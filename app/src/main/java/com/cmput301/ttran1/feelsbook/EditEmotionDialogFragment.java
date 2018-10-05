@@ -6,54 +6,42 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class AddEmotionDialogFragment extends DialogFragment
+public class EditEmotionDialogFragment extends DialogFragment
         implements AdapterView.OnItemSelectedListener {
-
     private View view;
     private Spinner emotionSelect;
     private String selectedEmotion;
 
     private static final String FILENAME = "SavedEmotions.sav";
 
-    // Calling activity must implement this to know when dialog buttons are pressed.
-    public interface AddEmotionDialogListener {
+    public interface EditEmotionDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
-    AddEmotionDialogListener dialogListener;
+    EditEmotionDialogFragment.EditEmotionDialogListener dialogListener;
 
-    // For the spinner selection
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         selectedEmotion = parent.getItemAtPosition(position).toString();
     }
 
-    // For the spinner selection
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
     }
 
-    // Forces the calling activity to implement the listener
-    // interface so it knows when dialog buttons are pressed.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            // If the calling activity didn't implement dialog listener interface,
-            // this will throw an exception.
-            dialogListener = (AddEmotionDialogListener) context;
+            dialogListener = (EditEmotionDialogFragment.EditEmotionDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString()
                     + " must implement Notice Dialog Listener");
@@ -92,20 +80,17 @@ public class AddEmotionDialogFragment extends DialogFragment
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        dialogListener.onDialogPositiveClick(AddEmotionDialogFragment.this);
+                        dialogListener.onDialogPositiveClick(EditEmotionDialogFragment.this);
                     }
                 })
                 .setNegativeButton(R.string.dialog_discard, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialogListener.onDialogNegativeClick(AddEmotionDialogFragment.this);
+                        dialogListener.onDialogNegativeClick(EditEmotionDialogFragment.this);
                     }
                 })
-                .setTitle(R.string.dialog_add_emotion_title);
+                .setTitle(R.string.dialog_edit_emotion_title);
 
         // Create the AlertDialog object and return it
         return builder.create();
     }
-
-
-
 }

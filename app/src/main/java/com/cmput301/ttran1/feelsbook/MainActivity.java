@@ -31,7 +31,8 @@ import java.util.List;
 import static android.provider.Telephony.Mms.Part.FILENAME;
 
 public class MainActivity extends AppCompatActivity
-        implements AddEmotionDialogFragment.AddEmotionDialogListener {
+        implements AddEmotionDialogFragment.AddEmotionDialogListener,
+        EditEmotionDialogFragment.EditEmotionDialogListener{
 
     private RecyclerView recyclerView;
     private EmotionsHistoryAdapter rvAdapter;
@@ -69,10 +70,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        for (int i = 0; i < EmotionsHistory.getEmotions().size(); i++) {
-            Log.d("debug", EmotionsHistory.getEmotions().get(i).getEmotion());
-        }
-
         recyclerView = (RecyclerView) findViewById(R.id.emotionsHistoryView);
         recyclerView.setHasFixedSize(true);     // improves performance
 
@@ -84,6 +81,9 @@ public class MainActivity extends AppCompatActivity
                         Toast toast = Toast.makeText(recyclerView.getContext(),
                                 "Hellothere", Toast.LENGTH_SHORT);
                         toast.show();
+                        EditEmotionDialogFragment editEmotionDialogFragment =
+                                new EditEmotionDialogFragment();
+                        editEmotionDialogFragment.show(getFragmentManager(), "editEmotion");
                         return false;
                     }
                 }
@@ -136,13 +136,14 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    // Used by the AddEmotionDialogFragment
+    // Called when the DialogFragment buttons are pressed.
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         updateCountText();
         rvAdapter.notifyDataSetChanged();
     }
 
+    // Called when the DialogFragment buttons are pressed.
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
     }
