@@ -14,6 +14,17 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+/*
+Class: EditEmotionDialogFragment
+
+Handles the popup for editing an emotion.
+Manages the popup view.
+Saves the replaces the edited emotion in memory.
+
+Code referenced from
+https://developer.android.com/guide/topics/ui/dialogs#AlertDialog
+https://developer.android.com/guide/topics/ui/controls/spinner
+ */
 public class EditEmotionDialogFragment extends DialogFragment
         implements AdapterView.OnItemSelectedListener {
     private View view;

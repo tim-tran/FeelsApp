@@ -30,6 +30,13 @@ import java.util.List;
 
 import static android.provider.Telephony.Mms.Part.FILENAME;
 
+/*
+Class: MainActivity
+
+Main activity for app, which can create popups to add and edit emotions.
+Displays emotions in a recycler view.
+
+ */
 public class MainActivity extends AppCompatActivity
         implements AddEmotionDialogFragment.AddEmotionDialogListener,
         EditEmotionDialogFragment.EditEmotionDialogListener{

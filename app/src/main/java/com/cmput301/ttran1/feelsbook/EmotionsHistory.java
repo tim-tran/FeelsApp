@@ -5,6 +5,11 @@ import android.content.Context;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/*
+Class: EmotionsHistory
+
+Manages emotions stored in memory and stores them in an ArrayList.
+ */
 public class EmotionsHistory {
 
     private static int loveCount = 0;
@@ -41,6 +46,10 @@ public class EmotionsHistory {
     }
 
     // TODO: improve this so you don't have to call count every time you add a new emotion
+    /*
+    Counts the the number of each emotion.
+    Always call before calling getEmotionCount.
+     */
     public static void count() {
         loveCount = 0;
         joyCount = 0;

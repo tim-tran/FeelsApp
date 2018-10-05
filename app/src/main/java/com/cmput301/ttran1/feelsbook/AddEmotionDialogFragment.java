@@ -17,6 +17,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*
+Class: AddEmotionDialogFragment
+
+Handles the popup for adding an emotion.
+Manages the popup view.
+Saves the added emotion to memory.
+
+Code referenced from
+https://developer.android.com/guide/topics/ui/dialogs#AlertDialog
+https://developer.android.com/guide/topics/ui/controls/spinner
+ */
 public class AddEmotionDialogFragment extends DialogFragment
         implements AdapterView.OnItemSelectedListener {
 

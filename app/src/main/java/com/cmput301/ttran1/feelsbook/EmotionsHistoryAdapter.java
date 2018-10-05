@@ -12,7 +12,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /*
-Class referenced from
+Class: EmotionsHistoryAdapter
+
+Adapter class to populate recyclerview with custom Emotions data.
+
+Code referenced from
+Nathan Esquenazi, Codepath Android Cliffnotes
 https://guides.codepath.com/android/Using-the-RecyclerView
 2018-10-02
  */

@@ -4,6 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /*
+  Class: ItemClickSupport
+
+  Adds click support to recycler view
+
+
+
+  Code taken from: Hugo Visser, Little Robots, August 05, 2015.
   Source: http://www.littlerobots.nl/blog/Handle-Android-RecyclerView-Clicks/
   USAGE:
 

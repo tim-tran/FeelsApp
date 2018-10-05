@@ -8,7 +8,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/* Class taken from
+/*
+Class: InternalStorage
+
+Contains functions for writing and reading objects to internal storage.
+
+Class taken from
+Veaceslav Grec, Android Research Blog
 https://androidresearch.wordpress.com/2013/04/07/caching-objects-in-android-internal-storage/
  2018-10-04
  */
